@@ -1,0 +1,62 @@
+{
+    "manifest_version": 2,
+    "name": "Omni-Jira",
+    "version": "1.0.0",
+    "omnibox": { "keyword" : "jira" },
+    "permissions": [
+        "storage",
+        "tabs",
+        "history",
+        "search"
+    ],
+    "icons": {
+        "16": "images/16.png",
+        "32": "images/32.png",
+        "48": "images/48.png",
+        "128": "images/128.png",
+        "512": "images/512.png"
+    },
+    "background": {
+        "scripts": [
+            "background.js"
+        ]
+    },
+    "commands" : {
+        "create-new-jira": {
+            "suggested_key" : {
+                "default" : "Alt + J"
+            },
+            "description" : "Open new tab to create a Jira ticket"
+        },
+        "create-secondary-new-jira": {
+            "suggested_key" : {
+                "default" : "Alt + K"
+            },
+            "description" : "Open new tab to create a Jira ticket (secondary)"
+        },
+        "open-fav": {
+            "suggested_key" : {
+                "default" : "Alt + N"
+            },
+            "description" : "Open favourite link"
+        },
+        "open-secondary-fav": {
+            "suggested_key" : {
+                "default" : "Alt + M"
+            },
+            "description" : "Open favourite link (secondary)"
+        }
+    },
+    "options_ui": {
+        "page" : "options.html",
+        "open_in_tab" : true
+    },
+    "browser_action": {
+        "default_popup": "index.html",
+        "default_icon": {
+            "16": "images/16.png",
+            "24": "images/24.png",
+            "32": "images/32.png"
+        }
+    }
+}
