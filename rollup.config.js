@@ -1,4 +1,5 @@
 import svelte from 'rollup-plugin-svelte';
+import replace from 'rollup-plugin-replace'
 import commonjs from '@rollup/plugin-commonjs';
 import alias from '@rollup/plugin-alias';
 import resolve from '@rollup/plugin-node-resolve';
@@ -74,7 +75,7 @@ export default [
 			// we'll extract any component CSS out into
 			// a separate file - better for performance
 			css({ output: 'options_bundle.css' }),
-	
+			replace({ 'process.env.NODE_ENV': JSON.stringify( 'production' ) }),
 			// If you have external dependencies installed from
 			// npm, you'll most likely need these plugins. In
 			// some cases you'll need additional configuration -

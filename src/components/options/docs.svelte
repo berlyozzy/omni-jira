@@ -1,5 +1,5 @@
 <script>
-    import { help_commands, Copy, OpenExternal } from 'lib/helpers.js';
+    import { help_commands, Copy } from 'lib/helpers.js';
     import Fa from 'svelte-fa'
 	import { faExternalLinkAlt, faCopy, faTimes } from '@fortawesome/free-solid-svg-icons';
     import { toast } from '@zerodevx/svelte-toast'
@@ -46,17 +46,19 @@
         {#each filteredHelp as {text, copy, external}}
             <span class="record is-clickable" on:click={_ => {
 
-                if(external){
-                    OpenExternal(copy)
-                }else{
+                if(!external){
                     Copy(copy);
                     copied = copy;
-                    toast.push('Copeid 📝');
+                    toast.push('Copied 📝');
                 }
 
             }}>
                 <div class="record-contents">
-                    {@html text}
+                    {#if external}
+                        <a href='{copy}' target="_blank" style="align-self: center; color: inherit;"> {@html text} </a>
+                    {:else}
+                        {@html text}
+                    {/if}
                 </div>
                 {#if external}
                     <span class="icon has-text-link" style="place-self: center"> <Fa icon={faExternalLinkAlt} />  </span>
@@ -71,17 +73,19 @@
         {#each $help_commands as {text, copy, external}}
             <span class="record is-clickable" on:click={_ => {
 
-                if(external){
-                    OpenExternal(copy);
-                }else{
+                if(!external){
                     Copy(copy);
                     copied = copy;
-                    toast.push('Copeid 📝');
+                    toast.push('Copied 📝');
                 }
 
             }}>
                 <div class="record-contents">
-                    {@html text}
+                    {#if external}
+                        <a href='{copy}' target="_blank" style="align-self: center; color: inherit;"> {@html text} </a>
+                    {:else}
+                        {@html text}
+                    {/if}
                 </div>
                 {#if external}
                     <span class="icon has-text-link" style="place-self: center"> <Fa icon={faExternalLinkAlt} />  </span>
@@ -160,10 +164,6 @@
         display:grid; 
         gap: 5px;
         font-size: 0.8em;
-    }
-
-    .input, .input::placeholder{
-        font-size: 0.9em;
     }
 
 </style>

@@ -91,13 +91,13 @@
 
 		filters.push(filter);
 		chrome.storage.sync.set({JiraFilters : filters });
-		// filters = filters;
+		filters = filters;
 	}
 
 	const RemoveFilter = (index) => {
 		filters.splice(index, 1);
 		chrome.storage.sync.set({JiraFilters : filters});
-		// filters = filters;
+		filters = filters;
 	}
 
 	onMount(()=> {

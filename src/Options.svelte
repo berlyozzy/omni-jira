@@ -3,11 +3,13 @@
 	import Fa from 'svelte-fa'
 	import { faSave, faPlus, faHome, faBookmark, faBook, faLifeRing } from '@fortawesome/free-solid-svg-icons';
 	import { faGithub } from '@fortawesome/free-brands-svg-icons';
-	import { SvelteToast } from '@zerodevx/svelte-toast'
+	import { SvelteToast } from '@zerodevx/svelte-toast';
+	import tippy from "sveltejs-tippy";
 
 	import Settings from 'options/settings.svelte';
 	import Instance from 'options/instance.svelte';
-	import Documentation from 'options/docs.svelte'
+	import Documentation from 'options/docs.svelte';
+	import Filters from 'options/filters.svelte';
 
 	$: instances = [];
 	let status = "Saved 🔥";
@@ -32,9 +34,38 @@
 
 	};
 
+	const tooltips = [
+		{
+			content: "Settings",
+			placement: "right",
+			delay: [1000, 200]
+		},
+		{
+			content: "Filters",
+			placement: "right",
+			delay: [1000, 200]
+		},
+		{
+			content: "Help",
+			placement: "right",
+			delay: [1000, 200]
+		},
+		{
+			content: "GitHub",
+			placement: "right",
+			delay: [1000, 200]
+		},
+		{
+			content: "Home Page",
+			placement: "right",
+			delay: [1000, 200]
+		}
+	]
+
 	const tabs = {
 		'settings' : Settings,
-		'documentation' : Documentation
+		'documentation' : Documentation,
+		'filters' : Filters
 	}
 
 	const options = {
@@ -167,19 +198,19 @@
 	<nav bind:this={settings_element} class="settings {isTabOpen ? "has-background-white has-transition" : ""}" style="{isTabOpen ? "box-shadow: rgb(99 99 99 / 20%) 0px 2px 8px 0px;" : ""}"> 
 
 		<!-- svelte-ignore a11y-missing-attribute -->
-		<a class="icon has-text-danger is-clickable" on:click={_ => OpenTab("settings")}> <Fa icon={faBookmark} size={"lg"}/> </a>
+		<a use:tippy={tooltips[0]} class="icon has-text-danger is-clickable" on:click={_ => OpenTab("settings")}> <Fa icon={faBookmark} size={"lg"}/> </a>
 
 		<!-- svelte-ignore a11y-missing-attribute -->
-		<a class="icon has-text-success is-clickable"> <Fa icon={faBook} size={"lg"}/> </a>
+		<a use:tippy={tooltips[1]} class="icon has-text-success is-clickable" on:click={_ => OpenTab("filters")}> <Fa icon={faBook} size={"lg"}/> </a>
 
 		<!-- svelte-ignore a11y-missing-attribute -->
-		<a class="icon has-text-danger is-clickable" on:click={_ => OpenTab("documentation")}> <Fa icon={faLifeRing} size={"lg"}/> </a>
+		<a use:tippy={tooltips[2]} class="icon has-text-danger is-clickable" on:click={_ => OpenTab("documentation")}> <Fa icon={faLifeRing} size={"lg"}/> </a>
 
-		<a class="icon has-text-info" href="https://example.com/" target="_blank">
+		<a use:tippy={tooltips[3]} class="icon has-text-info" href="https://github.com/berlyozzy/omni-jira" target="_blank">
 			<Fa icon={faGithub} size={"lg"}/>
 		</a>
 
-		<a class="icon has-text-primary" href="https://example.com/" target="_blank">
+		<a use:tippy={tooltips[4]} class="icon has-text-primary" href="https://example.com/" target="_blank">
 			<Fa icon={faHome} size={"lg"}/>
 		</a>
 
@@ -223,10 +254,6 @@
 
 	.new-options{
 		box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-	}
-
-	.button{
-		box-shadow: rgba(50, 50, 93, 0.15) 0px 2px 5px -1px, rgba(0, 0, 0, 0.2) 0px 1px 3px -1px;
 	}
 
 	.new-options{
