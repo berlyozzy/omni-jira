@@ -1,13 +1,12 @@
 <script>
-    import Fa from 'svelte-fa'
-	import { faTimes, faEraser, faAngleDown, faTag, faSave } from '@fortawesome/free-solid-svg-icons';
-    import { toast } from '@zerodevx/svelte-toast'
-    import Fuse from 'fuse.js';
     import { onMount } from "svelte";   
+	import Fa from 'svelte-fa';
+	import { faEraser, faAngleDown, faTag, faSave } from '@fortawesome/free-solid-svg-icons';
+    import { toast } from '@zerodevx/svelte-toast';
+    import tippy from "sveltejs-tippy";
 
-    let projects_element;
-    let searchInput = "";
-    let filteredHelp = [];
+
+	let projects_element;
     let filters = [];
 	let raw_instances = [];
 	let instances = [];
@@ -43,29 +42,6 @@
 
     });
 
-    const Search = async () => {
-
-        if(searchInput.length != 0){
-
-            const fuse = new Fuse(filters, {
-                keys: ['filter_tag', 'id', 'instance_tag'],
-                findAllMatches: false,
-                ignoreLocation: true,
-                minMatchCharLength: searchInput.length
-            });
-
-            filteredHelp = (fuse.search(`^${searchInput}`)).map(e => {return e.item});
-        }else{
-            filteredHelp = [];
-        }
-
-    }
-
-    const ResetSearch = () => {
-        searchInput = ""; 
-        filteredHelp = [];
-    }
-
     const SelectInstance = ({target : { textContent }}) => {
 		if(selected_project.trim() != textContent.trim()){
 			selected_project = textContent.trim()
@@ -75,10 +51,6 @@
 	}
 
 	const SaveFilter = () => {
-
-        if(filteredHelp.length != 0){
-            ResetSearch();
-        }
 
 		const instance = raw_instances.find(({description}) => description.trim() == selected_project.trim());
 		const { content } = instance;
@@ -104,10 +76,6 @@
 
     const RemoveFilter = ({instance, id, instance_tag, filter_tag}) => {
 
-        if(filteredHelp.length != 0){
-            ResetSearch();
-        }
-
 		const filter = filters.findIndex(e => e.id === id && e.instance_tag === instance_tag && e.instance === instance && e.filter_tag === filter_tag);
 
         filters.splice(filter, 1);
@@ -118,51 +86,41 @@
         toast.push('Filter Removed 📝');
 	}
 
-    onMount(()=> {
+	onMount(()=> {
 
-        window.addEventListener('click', ({target}) => {
-            if(isProjectsOpen && !projects_element.contains(target)){ 
-                isProjectsOpen = false
-            }
-        });
+		window.addEventListener('click', ({target}) => {
+			if(isProjectsOpen && !projects_element.contains(target)){ 
+				isProjectsOpen = false
+			}
+		});
 
-    })
+	});
+
+    const showTooltip = (content) => {
+        return {
+            content: content,
+			placement: "bottom",
+			delay: [1000, 200]
+        }
+    }
 
 </script>
 
-<div class="filters-display is-grid">
-    <span class="record is-keyword-input is-clickable">
+
+<div class= "view">
+
+    {#each filters as {filter_tag, id, instance, instance_tag}}
+    <span class="record">
         <div class="record-contents">
-            <input class="input" placeholder="Keywords" type="text" bind:value={searchInput} on:input|stopPropagation={Search}>
+            <a use:tippy={showTooltip(`${instance.endsWith('/') ? instance.slice(0, -1) : instance}/issues/?filter=${id}`)} href='{instance.endsWith('/') ? instance.slice(0, -1) : instance}/issues/?filter={id}' target="_blank" style="align-self: center"> {instance_tag} - {id} - {filter_tag} </a>
         </div>
-        <button class="button reset-keyword-input {searchInput == "" ? "is-disabled" : ""}" disabled={searchInput == "" ? true : false} on:click={ResetSearch}>
-            <span class="icon"> <Fa icon={faTimes} />  </span>
-        </button>
+        <div class="record-controlls">
+            <button class="button is-danger is-outlined" on:click|stopPropagation={_ => RemoveFilter({filter_tag, id, instance, instance_tag})}> <Fa icon={faEraser} /> </button>
+        </div>
     </span>
+    {/each}
 
-    {#key filters}
-    {#if filteredHelp.length != 0}
-        {#each filteredHelp as {filter_tag, id, instance, instance_tag}}
-            <span class="record">
-                <div class="record-contents">
-                    <a href='{instance.endsWith('/') ? instance.slice(0, -1) : instance}/issues/?filter={id}' target="_blank" style="align-self: center"> {instance_tag} - {id} - {filter_tag} </a>
-                </div>
-                <button class="button is-danger is-outlined" on:click|stopPropagation={_ => RemoveFilter({filter_tag, id, instance, instance_tag})}> <Fa icon={faEraser} /> </button>
-            </span>
-        {/each}
-    {:else}
-        {#each filters as {filter_tag, id, instance, instance_tag}}
-            <span class="record">
-                <div class="record-contents">
-                    <a href='{instance.endsWith('/') ? instance.slice(0, -1) : instance}/issues/?filter={id}' target="_blank" style="align-self: center"> {instance_tag} - {id} - {filter_tag} </a>
-                </div>
-                <button class="button is-danger is-outlined" on:click|stopPropagation={_ => RemoveFilter({filter_tag, id, instance, instance_tag})}> <Fa icon={faEraser} /> </button>
-            </span>
-        {/each}
-    {/if}     
-    {/key}
-
-    <span class="record" style="gap: 5px">
+    <span class="record" style="gap: 5px; padding-left: 5px; padding-right: 5px;">
         <div class="new-record-contents">
             <div bind:this={projects_element} class="dropdown {isProjectsOpen ? "is-active" : ""}">
                 <div class="dropdown-trigger" style="width: 100%;">
@@ -194,62 +152,49 @@
 </div>
 
 <style>
-    .filters-display{
-       display: none;
-       position: absolute;
-       background: white;
-       padding: 20px;
-       border-radius: 5px;
-       width: 25vw;
-       left: 110%;
-       top: 0;
-       gap: 15px;
-       box-shadow: rgb(99 99 99 / 20%) 0px 2px 8px 0px;
-       max-height: 98vh;
-       overflow: auto;
-   }
 
-   .record{
+    .view{
+		display: grid;
+		grid-gap: 5px;
+		font-size: 0.9em;
+		padding: 5px;
+	}
+
+    .record{
        display: grid;
-       grid-template-columns: auto 10%;
-       height: max-content;
+       grid-template-columns: auto 15%;
+       height: 60px;
        background: white;
-       padding: 10px;
        border-radius: 5px;
+       align-items: center;
        border: 3px solid transparent;
        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
    }
 
-   .record:not(.is-keyword-input):hover{
+   .record:hover{
        background: rgba(0,0,0,0.01);
        border-right: 3px solid var(--border);
        border-bottom: 3px solid var(--border);
    }
 
-   .reset-keyword-input{
-       border-radius: 50%;
-       border: none;
-       height: 2em;
-       width: 2em;
-       background-color: none;
-       place-self: center;
-       opacity: 0.6;
-   }
-
-   .reset-keyword-input:not(.is-disabled):hover{
-       background: rgb(243, 243, 243);
-       opacity: 0.8;
-   }
-
    .record-contents{
        display: grid;
        gap: 5px;
+       height: 100%;
    }
 
-   :global(.record-contents span){
-       display:grid; 
-       gap: 5px;
-       font-size: 0.8em;
+   .record-controlls{
+        width: 100%;
+        height: 100%;
+        place-items: center;
+        display: grid;
+   }
+
+   a{
+        height: 100%;
+        padding-left: 10px;
+        display: grid;
+        align-items: center;
    }
 
    .new-record-contents{

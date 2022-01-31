@@ -70,8 +70,8 @@
 
 	const options = {
 		duration: 2500,
-		initial: 1,           // initial progress bar value
-		next: 0,              // next progress value
+		initial: 1,
+		next: 0, 
 		theme: {
 			'--toastBackground': '#00d1b2',
 			'--toastBarBackground': '#ebfffc'

@@ -12,7 +12,8 @@ const aliases = alias({
 	resolve: ['.svelte', '.js'],
 	entries: [
 	  { find: 'lib', replacement: 'src/lib' },
-	  { find: 'options', replacement: 'src/components/options'}
+	  { find: 'options', replacement: 'src/components/options' },
+	  { find: 'popup', replacement: 'src/components/popup' }
 	]
 });
 
@@ -36,7 +37,7 @@ export default [
 			// we'll extract any component CSS out into
 			// a separate file - better for performance
 			css({ output: 'bundle.css' }),
-	
+			replace({ 'process.env.NODE_ENV': JSON.stringify( 'production' ) }),
 			// If you have external dependencies installed from
 			// npm, you'll most likely need these plugins. In
 			// some cases you'll need additional configuration -
