@@ -1,0 +1,14 @@
+@import "https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css";
+
+:root {
+    --green: #00d1b2;
+    --red: hsl(348, 100%, 61%);
+}
+
+html{
+    overflow: auto !important;
+}
+
+.is-grid{
+    display: grid !important;
+}

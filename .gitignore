@@ -1,0 +1,9 @@
+build/
+node_modules/
+.DS_Store
+.idea/
+_meta/
+.nyc_output/
+.env
+*.zip
+package-lock.json
