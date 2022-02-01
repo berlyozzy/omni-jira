@@ -16,7 +16,7 @@
 	}
 
 	const options = {
-		duration: 2500,
+		duration: 1000,
 		initial: 1,         
 		next: 0,
 		theme: {
@@ -52,7 +52,7 @@
 		grid-template-rows: 50px auto;
 		display: grid;
 		grid-gap: 5px;
-		background: rgba(0,0,0,0.03);
+		background: white;
 	}
 
 	.popup-header{
@@ -81,19 +81,6 @@
 	.popup-content{
 		height: 100%;
 		overflow: auto;
-	}
-
-	.popup-content::-webkit-scrollbar {
-		width: 7px;
-		height: 7px;
-	}
-
-	.popup-content::-webkit-scrollbar-track{
-		background: transparent !important;
-	}
-
-	.popup-content::-webkit-scrollbar-thumb{
-		background-color: rgba(34,34,34,0.5) !important;
 	}
 
 </style>

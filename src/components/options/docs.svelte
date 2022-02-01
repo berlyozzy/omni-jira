@@ -160,10 +160,4 @@
 		gap: 5px;
 	}
 
-    :global(.record-contents span){
-        display:grid; 
-        gap: 5px;
-        font-size: 0.8em;
-    }
-
 </style>
