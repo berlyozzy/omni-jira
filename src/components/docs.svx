@@ -1,3 +1,7 @@
+<script>
+  import Menu from './docs_menu.svelte'
+</script>
+
 # Omni-Jira: The Browser Extension
 
 Omni-Jira is a browser extension designed to help with productivity using Jira by allowing to leverage multiple jira instances through chromium omnibox API.
@@ -14,6 +18,31 @@ Omni-Jira is a browser extension designed to help with productivity using Jira b
       - [Shortcuts](#shortcuts)
   - [Export/Import User Preferences](#exportimport-user-preferences)
 
+<Menu>
+
+[Omni-Jira: The Browser Extension](#omni-jira-the-browser-extension)
+
+[Browser Support](#browser-support)
+
+[The tech behind](#the-tech-behind)
+
+[Can I install it through Chrome Web Store?](#can-i-install-it-through-chrome-web-store)
+
+[What does it do?](#what-does-it-do)
+
+[History Module](#history-module)
+
+[Smart Filters / Filters](#smart-filters--filters)
+
+[Help](#help)
+
+[Extension Options](#extension-options)
+
+[Shortcuts](#shortcuts)
+
+[Export/Import User Preferences](#exportimport-user-preferences)
+
+</Menu>
 
 ## Browser Support
 

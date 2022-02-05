@@ -1,10 +1,12 @@
 import svelte from 'rollup-plugin-svelte';
 import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
+import child_process from "child_process";
 import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
 import css from 'rollup-plugin-css-only';
 import { mdsvex } from "mdsvex";
+import slug from 'rehype-slug';
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -18,7 +20,7 @@ function serve() {
 	return {
 		writeBundle() {
 			if (server) return;
-			server = require('child_process').spawn('npm', ['run', 'start', '--', '--dev'], {
+			server = child_process.spawn('npm', ['run', 'start', '--', '--dev'], {
 				stdio: ['ignore', 'inherit', 'inherit'],
 				shell: true
 			});
@@ -44,7 +46,9 @@ export default {
 				dev: !production
 			},
 			extensions: [".svelte", ".svx"],
-			preprocess: mdsvex()
+			preprocess: mdsvex({
+				rehypePlugins: [slug]
+			})
 		}),
 		// we'll extract any component CSS out into
 		// a separate file - better for performance

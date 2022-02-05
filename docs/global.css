@@ -7,8 +7,25 @@
 
 html{
     overflow: auto !important;
+    scroll-behavior: smooth;
+}
+
+html, body{
+    height: auto;
 }
 
 .is-grid{
     display: grid !important;
 }
+
+*::-webkit-scrollbar {
+    width: 7px;
+}
+
+*::-webkit-scrollbar-track{
+    background: transparent !important;
+}
+
+*::-webkit-scrollbar-thumb{
+    background-color: rgb(218, 219, 220) !important;
+} 

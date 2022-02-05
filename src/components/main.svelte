@@ -74,10 +74,16 @@
 <style>
 
     main{
-		height: 100vh;
+		height: 100%;
 		width: 100%;
 		display: grid;
+		padding: 0 5em 2em;
 		grid-template-rows: 30vh max-content auto;
+	}
+
+	article{
+		min-width: 65vw;
+		max-width: 90vw;
 	}
 
     .content{
@@ -105,6 +111,7 @@
 		margin: 0;
 		display: grid;
 		place-items: center;
+		margin-top: 2vh;
 	}
 
 	.author{
@@ -121,14 +128,14 @@
 		align-items: start;
 		justify-items: center;
 		grid-template-rows: max-content auto;
-		gap: 3vh;
 		z-index: 1;
 	}
 
 	.big-button{
 		height: 7vh;
 		width: 15vw;
-		min-width: max-content;
+		min-width: 200px;
+		min-height: 70px;
 	}
 
 	.demo-prefs{
