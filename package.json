@@ -1,27 +1,22 @@
 {
   "name": "omni-jira-landing",
   "version": "1.0.0",
+  "mode" : "module",
   "scripts": {
-    "build": "rollup -c",
-    "dev": "rollup -c -w",
-    "start": "sirv docs"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^16.0.0",
-    "@rollup/plugin-node-resolve": "^10.0.0",
+    "@sveltejs/vite-plugin-svelte": "^1.0.0-next.37",
     "mdsvex": "^0.10.5",
     "rehype-slug": "^5.0.1",
-    "rollup": "^2.3.4",
-    "rollup-plugin-css-only": "^3.0.0",
-    "rollup-plugin-livereload": "^2.0.0",
-    "rollup-plugin-svelte": "^7.0.0",
-    "rollup-plugin-terser": "^7.0.0",
     "svelte": "^3.43.1",
-    "svelte-fa": "^2.3.3"
+    "svelte-fa": "^2.3.3",
+    "vite": "^2.7.13"
   },
   "dependencies": {
     "@fortawesome/free-brands-svg-icons": "^5.15.4",
-    "@fortawesome/free-solid-svg-icons": "^5.15.4",
-    "sirv-cli": "^1.0.0"
+    "@fortawesome/free-solid-svg-icons": "^5.15.4"
   }
 }
