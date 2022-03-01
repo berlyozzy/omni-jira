@@ -8,7 +8,7 @@ Omni-Jira is a browser extension designed to help with productivity using Jira b
 
 - [Omni-Jira: The Browser Extension](#omni-jira-the-browser-extension)
   - [Browser Support](#browser-support)
-  - [The tech behind](#the-tech-behind)
+  - [Stack](#stack)
   - [Can I install it through Chrome Web Store?](#can-i-install-it-through-chrome-web-store)
   - [What does it do?](#what-does-it-do)
     - [History Module](#history-module)
@@ -46,15 +46,15 @@ Omni-Jira is a browser extension designed to help with productivity using Jira b
 
 ## Browser Support
 
-This extension is compatible with all chromium-based browsers supporting (Chrome, MS Edge, Firefox, Opera, Chromium), however there are few things to know about:
+This extension is compatible with chromium-based browsers (Chrome, MS Edge, Opera, Chromium), however there are few things to know about:
 
 >**Chrome and Edge**:
 >
->It can be installed and used unpacket. So far people haven't reported any issues using it on either of these browsers.
+>It can be installed and used unpacket.
 
 >**Firefox**:
 >
->**Firefox limits the use of chromium APIs** for unpacked (temporary extensions). Because this extension hasn't been released, yet, for Firefox officially, it is **not supported**.
+>**Firefox limits the use of chrome APIs** for unpacked (temporary extensions), making the extension unusable. **Not Supported (yet)**.
 
 >**Opera**:
 >
@@ -62,13 +62,17 @@ This extension is compatible with all chromium-based browsers supporting (Chrome
 
 >**Safari**:
 >
->Haven't tested this. To make this extension compatible with Safari it needs to be built through XCode: https://developer.apple.com/documentation/safariservices/safari_web_extensions.
+>**Partially Supported (the user needs to modify extension source)**. Safari requires for extensions to be built with XCode: https://developer.apple.com/documentation/safariservices/safari_web_extensions.
 
 
-## The tech behind
+## Stack
 
-The extension was built using [Svelte](https://svelte.dev/), standard [Chrome APIs](https://developer.chrome.com/docs/extensions/) and [Bulma CSS framework](https://bulma.io/). 
-
+- [Svelte](https://svelte.dev/)
+- [Chrome APIs](https://developer.chrome.com/docs/extensions/)
+- [MDsveX](https://mdsvex.com/)
+- [Bulma](https://bulma.io/)
+- [svelte-fa](https://www.npmjs.com/package/svelte-fa)
+- [Vite](https://vitejs.dev/)
 
 ## Can I install it through Chrome Web Store?
 
@@ -92,7 +96,7 @@ Omni-Jira allows navigating jira tickets, projects and instances through a set o
 
 > 🔥 Instances and projects need to be setup through extension options before they can be used
 > 
-> 🔥🔥 Filters are accessible through the omnibox and extension popup. The user has to add filters to the extension through the popup interface or options page first
+> 🔥🔥 Filters are accessible through the omnibox and extension popup. User has to add filters to Omni-Jira through popup interface or options page first
 > 
 > 🔥🔥🔥 Browser extensions allow for up-to 4 commands. [This is **an API limitation**](https://developer.chrome.com/docs/extensions/reference/commands/).
 
@@ -100,9 +104,9 @@ Omni-Jira allows navigating jira tickets, projects and instances through a set o
 
 Extension allows you to have quick access to up-to 10 last opened Jira tickets on any Jira instance. 
 
-* See short info about the jira
-* Remove it from the history module
-* Use saved link to re-open it
+* See history record title and url
+* Remove saved history records 
+* Use saved links to open pages
 
 Omni-Jira saves only unique links, no duplicates! 
 
@@ -118,16 +122,16 @@ As a heavy user you now have an ability to save your favourite filters for a spe
 
 ### Help
 
-The new Help section includes examples of omnibox commands and links to documentation (this page right here!). 
+Help section includes examples of omnibox commands and links to documentation (this page right here!). 
 
 These examples are presented in a form of a small card. Users are able to check card contents at any time, copy an example by clicking on the card, paste it into browser's address bar and try it out as an Omni-Jira command.
 
 
 ### Extension Options
 
-There are several things that can be changes/added to the default extension functionality after it was installed. 
+There are several things that can be changes/added installation. 
 
-To get to options:
+To get to settings:
 1. Click on the extensions symbol next to the address bar
 2. Find Omni-Jira in the list of installed extensions
 3. Press on the 3 dots next to the pin and select "*Options*"

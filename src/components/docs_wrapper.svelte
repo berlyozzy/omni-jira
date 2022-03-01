@@ -24,8 +24,8 @@
 <style>
 
     main{
-        margin: 4em;
-        padding: 1em;
+        margin: 4%;
+        padding: 1%;
         position: relative;
         background: rgba(255,255,255,0.8);
 	}

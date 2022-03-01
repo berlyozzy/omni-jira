@@ -77,7 +77,7 @@
 		height: 100%;
 		width: 100%;
 		display: grid;
-		padding: 0 5em 2em;
+		padding: 0 5% 2%;
 		grid-template-rows: 30vh max-content auto;
 	}
 
@@ -112,6 +112,10 @@
 		display: grid;
 		place-items: center;
 		margin-top: 2vh;
+	}
+
+	.buttons .button:not(:last-child):not(.is-fullwidth){
+		margin-right: 0
 	}
 
 	.author{
